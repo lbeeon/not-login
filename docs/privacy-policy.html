@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Privacy Policy — Not Login</title>
+  <style>
+    body {
+      max-width: 720px;
+      margin: 60px auto;
+      padding: 0 24px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      color: #222;
+    }
+    h1 { font-size: 28px; margin-bottom: 4px; }
+    h2 { font-size: 18px; margin-top: 36px; }
+    .meta { color: #888; font-size: 14px; margin-bottom: 40px; }
+    a { color: #1a73e8; }
+    ul { padding-left: 20px; }
+    li { margin-bottom: 6px; }
+    .lang-toggle {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 32px;
+    }
+    .lang-toggle button {
+      padding: 4px 14px;
+      border-radius: 20px;
+      border: 1px solid #ccc;
+      background: none;
+      cursor: pointer;
+      font-size: 14px;
+      color: #555;
+    }
+    .lang-toggle button.active {
+      background: #222;
+      border-color: #222;
+      color: #fff;
+    }
+    .lang-section { display: none; }
+    .lang-section.active { display: block; }
+    hr { border: none; border-top: 1px solid #eee; margin: 48px 0; }
+  </style>
+</head>
+<body>
+
+<div class="lang-toggle">
+  <button class="active" onclick="setLang('en')">English</button>
+  <button onclick="setLang('zh')">中文</button>
+</div>
+
+<!-- ── English ── -->
+<div class="lang-section active" id="lang-en">
+
+<h1>Privacy Policy</h1>
+<p class="meta">Not Login Chrome Extension &nbsp;·&nbsp; Last updated: July 1, 2026</p>
+
+<p>
+  Not Login ("the Extension") is a Chrome extension that lets you store and retrieve
+  physical-world secrets — such as Wi-Fi passwords, bank PINs, door codes, and API keys —
+  using your own Google Sheet as a backend. This policy explains what data the Extension
+  accesses, how it is used, and what it never does.
+</p>
+
+<h2>1. Data We Do Not Collect</h2>
+<p>
+  The Extension does <strong>not</strong> operate any server, database, or backend of its own.
+  No personal data, credentials, usage statistics, or analytics are ever transmitted to the
+  developer or any third party.
+</p>
+
+<h2>2. Data Stored Locally</h2>
+<ul>
+  <li>
+    <strong>Extension settings</strong> (Google Sheet ID and tab name) are stored in
+    <code>chrome.storage.local</code> on your device. This data never leaves your browser.
+  </li>
+  <li>
+    <strong>Session cache</strong> — a temporary copy of your secrets fetched from Google Sheets —
+    is stored in <code>chrome.storage.session</code> and is automatically cleared when Chrome closes.
+  </li>
+</ul>
+
+<h2>3. Google Account &amp; Google Sheets Access</h2>
+<p>
+  The Extension uses Google OAuth 2.0 (<code>chrome.identity</code>) to authenticate you and
+  obtain an access token. This token is used solely to read from and write to the specific
+  Google Sheet you configure. The Extension requests the
+  <code>https://www.googleapis.com/auth/spreadsheets</code> scope in order to:
+</p>
+<ul>
+  <li>Read your secrets from your Google Sheet</li>
+  <li>Append new secrets to your Google Sheet</li>
+  <li>Update existing rows in your Google Sheet</li>
+  <li>Delete rows from your Google Sheet</li>
+  <li>Create the secrets tab automatically on first use</li>
+</ul>
+<p>
+  Your secrets remain exclusively in your own Google Account. The Extension never reads
+  any other spreadsheets beyond the one you explicitly configure.
+</p>
+
+<h2>4. Clipboard</h2>
+<p>
+  When you click a secret field to copy it, the value is written to your system clipboard
+  using the <code>clipboardWrite</code> permission. This action is initiated solely by you
+  and no clipboard data is transmitted anywhere.
+</p>
+
+<h2>5. Autofill (Content Script)</h2>
+<p>
+  On HTTPS pages, the Extension injects a small icon next to password fields to offer
+  autofill suggestions for secrets you have stored with <code>type=web</code>. The content
+  script only reads secrets from the local session cache; it does not transmit any page
+  content or form data to any server.
+</p>
+
+<h2>6. Permissions Justification</h2>
+<ul>
+  <li><strong>identity</strong> — Required for Google OAuth authentication.</li>
+  <li><strong>storage</strong> — Required to save settings and the session cache locally.</li>
+  <li><strong>activeTab</strong> — Required to determine the current page's domain for autofill matching.</li>
+  <li><strong>clipboardWrite</strong> — Required to copy secrets to the clipboard on user request.</li>
+  <li><strong>host_permissions: https://sheets.googleapis.com/*</strong> — Required to call the Google Sheets API.</li>
+  <li><strong>host_permissions: &lt;all_urls&gt;</strong> — Required for the content script to inject the autofill icon on any HTTPS website.</li>
+</ul>
+
+<h2>7. Third-Party Services</h2>
+<p>
+  The Extension communicates exclusively with Google APIs
+  (<code>sheets.googleapis.com</code> and Google's OAuth endpoints).
+  No other third-party services are used.
+</p>
+
+<h2>8. Children's Privacy</h2>
+<p>
+  The Extension is not directed at children under the age of 13 and does not knowingly
+  collect any information from children.
+</p>
+
+<h2>9. Changes to This Policy</h2>
+<p>
+  If this policy is updated, the "Last updated" date at the top of this page will be revised.
+  Continued use of the Extension after any change constitutes acceptance of the new policy.
+</p>
+
+<h2>10. Contact</h2>
+<p>
+  For questions about this privacy policy, please open an issue on the project repository
+  or contact the developer directly.
+</p>
+
+</div>
+
+<!-- ── 中文 ── -->
+<div class="lang-section" id="lang-zh">
+
+<h1>隱私權政策</h1>
+<p class="meta">Not Login Chrome 擴充功能 &nbsp;·&nbsp; 最後更新：2026 年 7 月 1 日</p>
+
+<p>
+  Not Login（「本擴充功能」）是一款 Chrome 擴充功能，讓你以自己的 Google Sheet 作為後端，
+  儲存與查詢實體世界的密碼——例如 Wi-Fi 密碼、銀行 PIN、門禁代碼、API 金鑰等。
+  本政策說明本擴充功能存取哪些資料、如何使用，以及絕對不會做的事情。
+</p>
+
+<h2>1. 我們不收集任何資料</h2>
+<p>
+  本擴充功能<strong>不</strong>擁有任何伺服器、資料庫或後端系統。
+  任何個人資料、憑證、使用統計或分析數據，均不會傳送給開發者或任何第三方。
+</p>
+
+<h2>2. 本機儲存的資料</h2>
+<ul>
+  <li>
+    <strong>擴充功能設定</strong>（Google Sheet ID 與分頁名稱）儲存於你裝置上的
+    <code>chrome.storage.local</code>，不會離開你的瀏覽器。
+  </li>
+  <li>
+    <strong>Session 快取</strong>——從 Google Sheets 取回的密碼暫存——儲存於
+    <code>chrome.storage.session</code>，Chrome 關閉時自動清除。
+  </li>
+</ul>
+
+<h2>3. Google 帳號與 Google Sheets 存取</h2>
+<p>
+  本擴充功能使用 Google OAuth 2.0（<code>chrome.identity</code>）驗證你的身份並取得存取 token。
+  此 token 僅用於讀取與寫入你所設定的特定 Google Sheet。
+  本擴充功能申請 <code>https://www.googleapis.com/auth/spreadsheets</code> 權限，用途如下：
+</p>
+<ul>
+  <li>從你的 Google Sheet 讀取密碼</li>
+  <li>新增密碼至你的 Google Sheet</li>
+  <li>更新你的 Google Sheet 中的現有資料列</li>
+  <li>刪除你的 Google Sheet 中的資料列</li>
+  <li>首次使用時自動建立密碼分頁</li>
+</ul>
+<p>
+  你的密碼資料完全保存在你自己的 Google 帳號中。
+  本擴充功能不會存取你所設定以外的任何試算表。
+</p>
+
+<h2>4. 剪貼簿</h2>
+<p>
+  當你點擊密碼欄位進行複製時，該數值會透過 <code>clipboardWrite</code> 權限寫入系統剪貼簿。
+  此動作完全由你主動觸發，複製的內容不會傳送至任何地方。
+</p>
+
+<h2>5. 自動填入（內容腳本）</h2>
+<p>
+  在 HTTPS 網頁上，本擴充功能會在密碼欄位旁注入一個小圖示，
+  為你儲存的 <code>type=web</code> 密碼提供自動填入建議。
+  內容腳本僅從本機 session 快取讀取資料，不會將任何頁面內容或表單資料傳送至任何伺服器。
+</p>
+
+<h2>6. 權限說明</h2>
+<ul>
+  <li><strong>identity</strong> — 用於 Google OAuth 身份驗證。</li>
+  <li><strong>storage</strong> — 用於在本機儲存設定與 session 快取。</li>
+  <li><strong>activeTab</strong> — 用於取得目前網頁的網域，以進行自動填入比對。</li>
+  <li><strong>clipboardWrite</strong> — 用於在使用者要求時複製密碼至剪貼簿。</li>
+  <li><strong>host_permissions: https://sheets.googleapis.com/*</strong> — 用於呼叫 Google Sheets API。</li>
+  <li><strong>host_permissions: &lt;all_urls&gt;</strong> — 用於在任何 HTTPS 網站注入自動填入圖示。</li>
+</ul>
+
+<h2>7. 第三方服務</h2>
+<p>
+  本擴充功能僅與 Google API（<code>sheets.googleapis.com</code> 及 Google OAuth 端點）通訊，
+  不使用任何其他第三方服務。
+</p>
+
+<h2>8. 兒童隱私</h2>
+<p>
+  本擴充功能不針對 13 歲以下兒童，亦不會主動收集兒童的任何資訊。
+</p>
+
+<h2>9. 政策變更</h2>
+<p>
+  若本政策有所更新，頁面頂部的「最後更新」日期將同步修改。
+  在政策變更後繼續使用本擴充功能，即表示接受新版政策。
+</p>
+
+<h2>10. 聯絡方式</h2>
+<p>
+  如對本隱私權政策有任何疑問，請在專案 repository 開 issue，或直接聯絡開發者。
+</p>
+
+</div>
+
+<script>
+  function setLang(lang) {
+    document.querySelectorAll('.lang-section').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.lang-toggle button').forEach(el => el.classList.remove('active'));
+    document.getElementById('lang-' + lang).classList.add('active');
+    document.querySelector(`.lang-toggle button[onclick="setLang('${lang}')"]`).classList.add('active');
+    document.documentElement.lang = lang === 'zh' ? 'zh-TW' : 'en';
+  }
+</script>
+
+</body>
+</html>

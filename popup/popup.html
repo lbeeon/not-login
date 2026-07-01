@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div id="app">
+    <header>
+      <span class="title" id="header-title">Not Login</span>
+      <div class="header-actions" id="header-main">
+        <button id="add-btn" title="Add secret">+</button>
+        <button id="refresh-btn" title="Refresh">↻</button>
+        <button id="settings-btn" title="Settings">⚙</button>
+      </div>
+      <div class="header-actions" id="header-settings" style="display:none">
+        <button id="back-btn" title="Back">←</button>
+      </div>
+    </header>
+
+    <!-- ── Main view ── -->
+    <div id="main-view">
+      <div id="add-form">
+        <div id="form-label"></div>
+        <div class="form-row">
+          <label for="type-select">type</label>
+          <select id="type-select">
+            <option value="web">web</option>
+            <option value="other">other</option>
+          </select>
+        </div>
+        <div class="form-row" id="category-row">
+          <label for="category-input">category</label>
+          <input id="category-input" type="text" placeholder="wifi, bank...">
+        </div>
+        <div class="form-row">
+          <label for="key-input">key</label>
+          <input id="key-input" type="text" placeholder="github.com">
+        </div>
+        <div class="form-row">
+          <label for="username-input">username</label>
+          <input id="username-input" type="text">
+        </div>
+        <div class="form-row">
+          <label for="secret-input">secret</label>
+          <input id="secret-input" type="password">
+        </div>
+        <div class="form-row">
+          <label for="notes-input">notes</label>
+          <input id="notes-input" type="text">
+        </div>
+        <div class="form-error" id="form-error"></div>
+        <div class="form-actions">
+          <button id="cancel-btn">Cancel</button>
+          <button id="save-btn" class="btn-primary">Save</button>
+        </div>
+      </div>
+
+      <div class="search-row">
+        <input id="search" type="text" placeholder="Search...">
+      </div>
+
+      <div id="filter-chips"></div>
+
+      <div id="status"></div>
+      <div id="list"></div>
+    </div>
+
+    <!-- ── Settings view ── -->
+    <div id="settings-view" style="display:none">
+      <div class="settings-body">
+        <div class="field">
+          <label for="cfg-sheet-id">Google Sheet URL</label>
+          <input id="cfg-sheet-id" type="text" placeholder="https://docs.google.com/spreadsheets/d/...">
+          <div class="field-hint">貼上完整網址或只貼 Sheet ID 都可以</div>
+        </div>
+        <div class="field">
+          <label for="cfg-tab-name">Tab name</label>
+          <input id="cfg-tab-name" type="text" placeholder="secrets">
+        </div>
+        <div class="settings-actions">
+          <button id="cfg-test">Test</button>
+          <button id="cfg-save" class="btn-primary">Save</button>
+        </div>
+        <div id="cfg-status"></div>
+      </div>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

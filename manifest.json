@@ -1,0 +1,62 @@
+{
+  "manifest_version": 3,
+  "name": "Not Login",
+  "version": "0.1.0",
+  "description": "Your secrets live in your Google Sheet.",
+
+  "permissions": [
+    "identity",
+    "storage",
+    "activeTab",
+    "clipboardWrite"
+  ],
+
+  "host_permissions": [
+    "https://sheets.googleapis.com/*",
+    "<all_urls>"
+  ],
+
+  "oauth2": {
+    "client_id": "208506499773-ae7q33v4m99dc8i9tndu6lobb4cldug2.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/spreadsheets"
+    ]
+  },
+
+  "icons": {
+    "16": "icons/16.png",
+    "48": "icons/48.png",
+    "128": "icons/128.png"
+  },
+
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "Not Login",
+    "default_icon": {
+      "16": "icons/16.png",
+      "48": "icons/48.png",
+      "128": "icons/128.png"
+    }
+  },
+
+  "background": {
+    "service_worker": "background/sw.js"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["https://*/*"],
+      "js": ["content/autofill.js"],
+      "run_at": "document_idle"
+    }
+  ],
+
+  "options_page": "options/options.html",
+
+  "web_accessible_resources": [
+    {
+      "resources": ["icons/16.png"],
+      "matches": ["https://*/*"]
+    }
+  ]
+}
