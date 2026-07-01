@@ -12,7 +12,7 @@ Wi-Fi passwords, bank PINs, door codes, API keys — the secrets that don't fit 
 - **Copy in one click** — username and password fields with clipboard feedback
 - **Reveal in place** — eye toggle shows the secret inline, auto-hides after 8 seconds
 - **Edit & delete** directly from the popup
-- **Autofill** for `type=web` entries on matching websites
+- **Autofill** for `type=website` entries on matching websites
 - **Your data, your Sheet** — Not Login is just a UI on top of a spreadsheet you own
 
 ---
@@ -43,9 +43,9 @@ The extension manages a tab (default: `secrets`) with these columns:
 
 | Column | Description |
 |--------|-------------|
-| `type` | `web` or `other` |
+| `type` | `general` or `website` |
 | `category` | Grouping label — e.g. `wifi`, `bank`, `api-key` |
-| `key` | Domain for `web` (e.g. `github.com`), or a name for `other` (e.g. `home wifi`) |
+| `key` | Domain for `website` (e.g. `github.com`), or a name for `general` (e.g. `home wifi`) |
 | `username` | Optional |
 | `secret` | Required |
 | `notes` | Optional |
@@ -71,6 +71,19 @@ git clone https://github.com/lbeeon/not-login.git
 3. Create an **OAuth 2.0 Client ID** → Chrome Extension type
 4. Add your extension ID to the allowed origins
 5. Add yourself as a Test User on the OAuth consent screen
+
+---
+
+## Permissions
+
+| Permission | Reason |
+|------------|--------|
+| `identity` | Google OAuth 2.0 authentication to access the user's Google Sheet |
+| `storage` | Saves Sheet ID and tab name locally; caches secrets for 5 minutes in session storage |
+| `activeTab` | Reads the current page's hostname for autofill matching |
+| `clipboardWrite` | Copies secrets to clipboard when the user clicks a field |
+| `https://sheets.googleapis.com/*` | Calls the Google Sheets API to read, write, update, and delete secrets |
+| `<all_urls>` | Injects the autofill icon next to password fields on any HTTPS website |
 
 ---
 
