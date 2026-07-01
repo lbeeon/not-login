@@ -75,7 +75,7 @@ function renderList(secrets) {
 function groupSecrets(secrets) {
   const map = new Map();
   secrets.forEach(s => {
-    const key = s.type === 'web' ? 'web' : (s.category || 'other');
+    const key = s.type === 'website' ? 'web' : (s.category || 'other');
     if (!map.has(key)) map.set(key, []);
     map.get(key).push(s);
   });
@@ -193,7 +193,7 @@ function renderChips(secrets) {
   const container = document.getElementById('filter-chips');
   container.innerHTML = '';
 
-  const categories = [...new Set(secrets.map(s => s.type === 'web' ? 'web' : (s.category || 'other')))];
+  const categories = [...new Set(secrets.map(s => s.type === 'website' ? 'web' : (s.category || 'other')))];
   if (categories.length <= 1) return;
 
   ['all', ...categories.sort((a, b) => {
@@ -225,7 +225,7 @@ function applyFilters() {
   let results = filterSecrets(allSecrets, query);
   if (activeCategory) {
     results = results.filter(s => {
-      const cat = s.type === 'web' ? 'web' : (s.category || 'other');
+      const cat = s.type === 'website' ? 'web' : (s.category || 'other');
       return cat === activeCategory;
     });
   }
@@ -294,15 +294,15 @@ function openEditForm(entry) {
 
 function handleTypeChange() {
   const type = document.getElementById('type-select').value;
-  document.getElementById('category-row').style.display = type === 'other' ? 'flex' : 'none';
-  document.getElementById('key-input').placeholder = type === 'web' ? 'github.com' : 'name';
+  document.getElementById('category-row').style.display = type === 'general' ? 'flex' : 'none';
+  document.getElementById('key-input').placeholder = type === 'website' ? 'github.com' : 'name';
 }
 
 function resetForm() {
   editingEntry = null;
   ['key-input', 'category-input', 'username-input', 'secret-input', 'notes-input']
     .forEach(id => (document.getElementById(id).value = ''));
-  document.getElementById('type-select').value = 'web';
+  document.getElementById('type-select').value = 'general';
   document.getElementById('form-label').textContent = '';
   document.getElementById('form-error').textContent = '';
   const btn = document.getElementById('save-btn');

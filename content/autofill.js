@@ -65,7 +65,7 @@ async function showAutofillMenu(anchor, pwField, usernameField) {
   }
 
   const matches = secrets.filter(s =>
-    s.type === 'web' && (
+    s.type === 'website' && (
       s.key === domain ||
       domain.endsWith('.' + s.key) ||
       s.key.endsWith('.' + domain)
