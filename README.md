@@ -80,6 +80,14 @@ Not Login has no server. Your secrets live in your Google Account and your brows
 
 ---
 
+## Support
+
+If Not Login saves you time, consider buying me a coffee ☕
+
+[![Ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/lbeeon)
+
+---
+
 ## License
 
 MIT

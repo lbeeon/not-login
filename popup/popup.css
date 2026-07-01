@@ -497,6 +497,21 @@ header {
 #cfg-status.error   { color: #d06060; }
 #cfg-status.info    { color: #888; }
 
+.settings-kofi {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.settings-kofi a {
+  font-size: 11px;
+  color: #444;
+  text-decoration: none;
+}
+
+.settings-kofi a:hover {
+  color: #888;
+}
+
 /* ── Status / Empty ── */
 #status {
   padding: 14px;
