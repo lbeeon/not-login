@@ -76,7 +76,7 @@ git clone https://github.com/lbeeon/not-login.git
 
 ## Privacy
 
-Not Login has no server. Your secrets live in your Google Account and your browser's local storage only. See the full [Privacy Policy](./privacy-policy.html).
+Not Login has no server. Your secrets live in your Google Account and your browser's local storage only. See the full [Privacy Policy](./docs/privacy-policy.html).
 
 ---
 
