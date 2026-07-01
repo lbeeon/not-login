@@ -140,7 +140,8 @@ function findRow(secrets, original) {
   return secrets.find(s =>
     s.key === original.key &&
     s.type === original.type &&
-    s.category === original.category
+    s.category === original.category &&
+    s.username === original.username
   ) || null;
 }
 

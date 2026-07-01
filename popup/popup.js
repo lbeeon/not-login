@@ -333,7 +333,7 @@ async function handleSave() {
   try {
     let res;
     if (editingEntry) {
-      const original = { key: editingEntry.key, type: editingEntry.type, category: editingEntry.category };
+      const original = { key: editingEntry.key, type: editingEntry.type, category: editingEntry.category, username: editingEntry.username };
       res = await chrome.runtime.sendMessage({ type: 'UPDATE_SECRET', original, entry });
     } else {
       res = await chrome.runtime.sendMessage({ type: 'APPEND_SECRET', entry });
@@ -385,7 +385,7 @@ function handleDelete(entry, delBtn) {
     confirmBtn.disabled = true;
     confirmBtn.textContent = '...';
     try {
-      const original = { key: entry.key, type: entry.type, category: entry.category };
+      const original = { key: entry.key, type: entry.type, category: entry.category, username: entry.username };
       const res = await chrome.runtime.sendMessage({ type: 'DELETE_SECRET', original });
       if (!res.ok) throw new Error(res.error);
       if (formVisible) toggleForm();
