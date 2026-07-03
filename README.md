@@ -29,7 +29,7 @@ https://docs.google.com/spreadsheets/d/<SHEET_ID>/edit
 
 ### 2. Install the extension
 
-Install from the [Chrome Web Store](#) *(link coming soon)* or load unpacked for development (see below).
+Install from the [Chrome Web Store](https://chromewebstore.google.com/detail/not-login/dnebaaknbmjhbnjdpjhlonfkekblbkni) or load unpacked for development (see below).
 
 ### 3. Configure
 
