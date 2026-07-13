@@ -455,6 +455,63 @@ header {
   margin-top: 5px;
 }
 
+/* ── Settings toggle ── */
+.field-toggle label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #ccc;
+  text-transform: none;
+  letter-spacing: 0;
+  margin-bottom: 4px;
+  cursor: pointer;
+}
+
+.toggle-wrap {
+  position: relative;
+  display: inline-block;
+  width: 34px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.toggle-wrap input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+.toggle-track {
+  position: absolute;
+  inset: 0;
+  background: #333;
+  border-radius: 10px;
+  transition: background 0.2s;
+}
+
+.toggle-track::after {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  background: #555;
+  border-radius: 50%;
+  top: 3px;
+  left: 3px;
+  transition: left 0.15s, background 0.15s;
+}
+
+.toggle-wrap input:checked + .toggle-track {
+  background: #1e4a7a;
+}
+
+.toggle-wrap input:checked + .toggle-track::after {
+  left: 17px;
+  background: #7ab4e8;
+}
+
 .settings-actions {
   display: flex;
   gap: 8px;

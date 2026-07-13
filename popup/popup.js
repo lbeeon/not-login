@@ -410,9 +410,10 @@ function setupSettings() {
 
 function openSettings() {
   if (formVisible) toggleForm();
-  chrome.storage.local.get(['sheetId', 'tabName'], ({ sheetId, tabName }) => {
+  chrome.storage.local.get(['sheetId', 'tabName', 'autofillEnabled'], ({ sheetId, tabName, autofillEnabled }) => {
     document.getElementById('cfg-sheet-id').value = sheetId || '';
     document.getElementById('cfg-tab-name').value = tabName || 'secrets';
+    document.getElementById('cfg-autofill').checked = !!autofillEnabled;
   });
   document.getElementById('main-view').style.display = 'none';
   document.getElementById('settings-view').style.display = 'block';
@@ -438,8 +439,9 @@ function parseSheetId(raw) {
 async function handleCfgSave() {
   const sheetId = parseSheetId(document.getElementById('cfg-sheet-id').value);
   const tabName = document.getElementById('cfg-tab-name').value.trim() || 'secrets';
+  const autofillEnabled = document.getElementById('cfg-autofill').checked;
   if (!sheetId) { setCfgStatus('Sheet ID is required', 'error'); return; }
-  await chrome.storage.local.set({ sheetId, tabName });
+  await chrome.storage.local.set({ sheetId, tabName, autofillEnabled });
   await chrome.storage.session.remove(['secrets', 'secretsAt']);
   setCfgStatus('Saved ✓', 'success');
   setTimeout(() => { closeSettings(); loadAndRender(); }, 800);

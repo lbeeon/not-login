@@ -55,7 +55,7 @@
 <div class="lang-section active" id="lang-en">
 
 <h1>Privacy Policy</h1>
-<p class="meta">Not Login Chrome Extension &nbsp;·&nbsp; Last updated: July 1, 2026</p>
+<p class="meta">Not Login Chrome Extension &nbsp;·&nbsp; Last updated: July 14, 2026</p>
 
 <p>
   Not Login ("the Extension") is a Chrome extension that lets you store and retrieve
@@ -112,7 +112,7 @@
 <h2>5. Autofill (Content Script)</h2>
 <p>
   On HTTPS pages, the Extension injects a small icon next to password fields to offer
-  autofill suggestions for secrets you have stored with <code>type=web</code>. The content
+  autofill suggestions for secrets you have stored with <code>type=website</code>. The content
   script only reads secrets from the local session cache; it does not transmit any page
   content or form data to any server.
 </p>
@@ -127,26 +127,64 @@
   <li><strong>host_permissions: &lt;all_urls&gt;</strong> — Required for the content script to inject the autofill icon on any HTTPS website.</li>
 </ul>
 
-<h2>7. Third-Party Services</h2>
+<h2>7. Sharing, Transfer, and Disclosure of Google User Data</h2>
 <p>
-  The Extension communicates exclusively with Google APIs
-  (<code>sheets.googleapis.com</code> and Google's OAuth endpoints).
-  No other third-party services are used.
+  The Extension does <strong>not</strong> share, sell, transfer, or disclose any Google user data —
+  including your Google Account identity, OAuth tokens, or the contents of your Google Sheet —
+  to the developer, any third party, or any other service. Your data flows only between your
+  browser and Google's own APIs (<code>sheets.googleapis.com</code> and Google's OAuth endpoints).
+  No other third-party services receive any data.
 </p>
 
-<h2>8. Children's Privacy</h2>
+<h2>8. Data Protection Mechanisms</h2>
+<p>
+  Your secrets are protected by multiple layers of security:
+</p>
+<ul>
+  <li><strong>Stored in your Google Account</strong> — secrets reside in a Google Sheet you own, protected by Google's security infrastructure and your own account credentials.</li>
+  <li><strong>OAuth 2.0 via Chrome Identity API</strong> — authentication tokens are managed exclusively by Chrome's built-in <code>chrome.identity</code> system; the Extension never stores or touches raw credentials.</li>
+  <li><strong>Local session cache only</strong> — secrets fetched from Google Sheets are temporarily cached in <code>chrome.storage.session</code>, which is sandboxed to the extension and inaccessible to web pages or other extensions.</li>
+  <li><strong>No transmission outside Google</strong> — your data is never sent to any server other than Google's own APIs.</li>
+  <li><strong>HTTPS only</strong> — all API requests to Google are made over HTTPS.</li>
+</ul>
+
+<h2>9. Data Retention and Deletion</h2>
+<ul>
+  <li>
+    <strong>Session cache</strong> — the temporary copy of your secrets held in
+    <code>chrome.storage.session</code> is automatically cleared when Chrome is closed.
+    It expires after 5 minutes of inactivity even within a session.
+  </li>
+  <li>
+    <strong>Extension settings</strong> (Sheet ID and tab name) stored in
+    <code>chrome.storage.local</code> persist until you uninstall the Extension or
+    clear it manually via Chrome's extension storage.
+  </li>
+  <li>
+    <strong>Google Sheets data</strong> — your secrets remain in your own Google Sheet
+    for as long as you choose to keep them. You can delete individual rows, clear the entire
+    sheet, or delete the spreadsheet at any time from Google Sheets.
+  </li>
+  <li>
+    <strong>Revoking access</strong> — you can revoke the Extension's access to your Google Account
+    at any time at <a href="https://myaccount.google.com/permissions" target="_blank">myaccount.google.com/permissions</a>.
+    This immediately invalidates the OAuth token and prevents further API access.
+  </li>
+</ul>
+
+<h2>11. Children's Privacy</h2>
 <p>
   The Extension is not directed at children under the age of 13 and does not knowingly
   collect any information from children.
 </p>
 
-<h2>9. Changes to This Policy</h2>
+<h2>12. Changes to This Policy</h2>
 <p>
   If this policy is updated, the "Last updated" date at the top of this page will be revised.
   Continued use of the Extension after any change constitutes acceptance of the new policy.
 </p>
 
-<h2>10. Contact</h2>
+<h2>13. Contact</h2>
 <p>
   For questions about this privacy policy, please open an issue on the project repository
   or contact the developer directly.
@@ -158,7 +196,7 @@
 <div class="lang-section" id="lang-zh">
 
 <h1>隱私權政策</h1>
-<p class="meta">Not Login Chrome 擴充功能 &nbsp;·&nbsp; 最後更新：2026 年 7 月 1 日</p>
+<p class="meta">Not Login Chrome 擴充功能 &nbsp;·&nbsp; 最後更新：2026 年 7 月 14 日</p>
 
 <p>
   Not Login（「本擴充功能」）是一款 Chrome 擴充功能，讓你以自己的 Google Sheet 作為後端，
@@ -225,24 +263,58 @@
   <li><strong>host_permissions: &lt;all_urls&gt;</strong> — 用於在任何 HTTPS 網站注入自動填入圖示。</li>
 </ul>
 
-<h2>7. 第三方服務</h2>
+<h2>7. Google 使用者資料的分享、移轉與揭露</h2>
+<p>
+  本擴充功能<strong>不會</strong>將任何 Google 使用者資料——包括你的 Google 帳號身份、OAuth token 或 Google Sheet 內容——分享、出售、移轉或揭露給開發者、任何第三方或其他服務。
+  你的資料僅在你的瀏覽器與 Google 自有 API（<code>sheets.googleapis.com</code> 及 Google OAuth 端點）之間流動，不會傳送至任何其他第三方服務。
+</p>
+
+<h2>8. 資料保護機制</h2>
+<p>
+  你的密碼受到多層安全保護：
+</p>
+<ul>
+  <li><strong>儲存於你的 Google 帳號</strong> — 密碼存放在你自己擁有的 Google Sheet，受 Google 的安全基礎架構及你的帳號憑證保護。</li>
+  <li><strong>OAuth 2.0 透過 Chrome Identity API</strong> — 存取 token 完全由 Chrome 內建的 <code>chrome.identity</code> 系統管理，本擴充功能從不儲存或接觸原始憑證。</li>
+  <li><strong>僅限本機 session 快取</strong> — 從 Google Sheets 取得的密碼暫存於 <code>chrome.storage.session</code>，此儲存區與擴充功能沙箱隔離，網頁或其他擴充功能無法存取。</li>
+  <li><strong>不傳出 Google 範圍</strong> — 你的資料絕不傳送至 Google 自有 API 以外的任何伺服器。</li>
+  <li><strong>全程 HTTPS</strong> — 所有對 Google API 的請求均透過 HTTPS 加密傳輸。</li>
+</ul>
+
+<h2>9. 資料保存期限與刪除</h2>
+<ul>
+  <li>
+    <strong>Session 快取</strong> — 儲存於 <code>chrome.storage.session</code> 的暫時密碼副本，在 Chrome 關閉時自動清除，並於閒置 5 分鐘後到期。
+  </li>
+  <li>
+    <strong>擴充功能設定</strong>（Sheet ID 與分頁名稱）儲存於 <code>chrome.storage.local</code>，持續保存直到你解除安裝本擴充功能，或透過 Chrome 的擴充功能儲存設定手動清除。
+  </li>
+  <li>
+    <strong>Google Sheets 資料</strong> — 你的密碼保存在你自己的 Google Sheet 中，保存期限由你自行決定。你可隨時在 Google Sheets 中刪除個別資料列、清空整個分頁或刪除整份試算表。
+  </li>
+  <li>
+    <strong>撤銷存取權限</strong> — 你可隨時前往 <a href="https://myaccount.google.com/permissions" target="_blank">myaccount.google.com/permissions</a> 撤銷本擴充功能對你 Google 帳號的存取權限，立即使 OAuth token 失效並停止後續 API 存取。
+  </li>
+</ul>
+
+<h2>10. 第三方服務</h2>
 <p>
   本擴充功能僅與 Google API（<code>sheets.googleapis.com</code> 及 Google OAuth 端點）通訊，
   不使用任何其他第三方服務。
 </p>
 
-<h2>8. 兒童隱私</h2>
+<h2>11. 兒童隱私</h2>
 <p>
   本擴充功能不針對 13 歲以下兒童，亦不會主動收集兒童的任何資訊。
 </p>
 
-<h2>9. 政策變更</h2>
+<h2>12. 政策變更</h2>
 <p>
   若本政策有所更新，頁面頂部的「最後更新」日期將同步修改。
   在政策變更後繼續使用本擴充功能，即表示接受新版政策。
 </p>
 
-<h2>10. 聯絡方式</h2>
+<h2>13. 聯絡方式</h2>
 <p>
   如對本隱私權政策有任何疑問，請在專案 repository 開 issue，或直接聯絡開發者。
 </p>

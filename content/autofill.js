@@ -1,3 +1,10 @@
+chrome.storage.local.get('autofillEnabled', ({ autofillEnabled }) => {
+  if (!autofillEnabled) return;
+  detectLoginForm();
+  const observer = new MutationObserver(detectLoginForm);
+  observer.observe(document.body, { childList: true, subtree: true });
+});
+
 function detectLoginForm() {
   document.querySelectorAll('input[type="password"]').forEach(pwField => {
     if (pwField.dataset.notloginAttached) return;
@@ -144,7 +151,3 @@ async function showAutofillMenu(anchor, pwField, usernameField) {
   }, 0);
 }
 
-detectLoginForm();
-
-const observer = new MutationObserver(detectLoginForm);
-observer.observe(document.body, { childList: true, subtree: true });
