@@ -69,15 +69,32 @@
     <!-- ── Settings view ── -->
     <div id="settings-view" style="display:none">
       <div class="settings-body">
-        <div class="field">
-          <label for="cfg-sheet-id">Google Sheet URL</label>
-          <input id="cfg-sheet-id" type="text" placeholder="https://docs.google.com/spreadsheets/d/...">
-          <div class="field-hint">貼上完整網址或只貼 Sheet ID 都可以</div>
+
+        <!-- Vault connected -->
+        <div id="vault-connected" style="display:none">
+          <div class="vault-section-label">Vault</div>
+          <div class="vault-info">
+            <span class="vault-check">✓</span>
+            <span id="vault-title-display"></span>
+          </div>
+          <div class="vault-btns">
+            <a id="vault-open-link" class="btn-settings" href="#" target="_blank">Open ↗</a>
+            <button id="vault-change" class="btn-settings">Change</button>
+          </div>
         </div>
-        <div class="field">
-          <label for="cfg-tab-name">Tab name</label>
-          <input id="cfg-tab-name" type="text" placeholder="secrets">
+
+        <!-- Vault setup -->
+        <div id="vault-setup" style="display:none">
+          <button id="cfg-create" class="btn-primary btn-full">Create new vault</button>
+          <div id="vault-list-section" style="display:none">
+            <div class="vault-list-label">or reconnect existing</div>
+            <div id="vault-list"></div>
+          </div>
         </div>
+
+        <div id="cfg-status"></div>
+
+        <!-- Autofill toggle -->
         <div class="field field-toggle">
           <label for="cfg-autofill" class="toggle-row">
             <span class="toggle-text">Autofill on websites</span>
@@ -88,11 +105,7 @@
           </label>
           <div class="field-hint">Show icon next to password fields (off by default)</div>
         </div>
-        <div class="settings-actions">
-          <button id="cfg-test">Test</button>
-          <button id="cfg-save" class="btn-primary">Save</button>
-        </div>
-        <div id="cfg-status"></div>
+
         <div class="settings-kofi">
           <a href="https://ko-fi.com/lbeeon" target="_blank">☕ Support development</a>
         </div>

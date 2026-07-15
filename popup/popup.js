@@ -22,7 +22,7 @@ async function loadAndRender() {
     const res = await chrome.runtime.sendMessage({ type: 'GET_SECRETS' });
     if (!res.ok) {
       if (res.error === 'NOT_CONFIGURED') {
-        showStatus('<a href="#" id="open-settings">Open settings →</a>');
+        showStatus('<a href="#" id="open-settings">Set up your vault →</a>');
         document.getElementById('open-settings').addEventListener('click', e => {
           e.preventDefault();
           openSettings();
@@ -404,23 +404,30 @@ function handleDelete(entry, delBtn) {
 function setupSettings() {
   document.getElementById('settings-btn').addEventListener('click', openSettings);
   document.getElementById('back-btn').addEventListener('click', closeSettings);
-  document.getElementById('cfg-save').addEventListener('click', handleCfgSave);
-  document.getElementById('cfg-test').addEventListener('click', handleCfgTest);
+  document.getElementById('cfg-create').addEventListener('click', handleCreateVault);
+  document.getElementById('vault-change').addEventListener('click', () => showVaultSetup(true));
+  document.getElementById('cfg-autofill').addEventListener('change', e => {
+    chrome.storage.local.set({ autofillEnabled: e.target.checked });
+  });
 }
 
-function openSettings() {
+async function openSettings() {
   if (formVisible) toggleForm();
-  chrome.storage.local.get(['sheetId', 'tabName', 'autofillEnabled'], ({ sheetId, tabName, autofillEnabled }) => {
-    document.getElementById('cfg-sheet-id').value = sheetId || '';
-    document.getElementById('cfg-tab-name').value = tabName || 'secrets';
-    document.getElementById('cfg-autofill').checked = !!autofillEnabled;
-  });
+  const { sheetId, vaultTitle } = await chrome.storage.sync.get(['sheetId', 'vaultTitle']);
+  const { autofillEnabled } = await chrome.storage.local.get('autofillEnabled');
+  document.getElementById('cfg-autofill').checked = !!autofillEnabled;
+  document.getElementById('cfg-status').textContent = '';
+  if (sheetId) {
+    showVaultConnected(sheetId, vaultTitle || 'Not Login Vault');
+  } else {
+    showVaultSetup(false);
+    loadVaultList();
+  }
   document.getElementById('main-view').style.display = 'none';
   document.getElementById('settings-view').style.display = 'block';
   document.getElementById('header-main').style.display = 'none';
   document.getElementById('header-settings').style.display = 'flex';
   document.getElementById('header-title').textContent = 'Settings';
-  document.getElementById('cfg-status').textContent = '';
 }
 
 function closeSettings() {
@@ -431,51 +438,65 @@ function closeSettings() {
   document.getElementById('header-title').textContent = 'Not Login';
 }
 
-function parseSheetId(raw) {
-  const m = raw.match(/\/spreadsheets\/d\/([a-zA-Z0-9-_]+)/);
-  return m ? m[1] : raw.trim();
+function showVaultConnected(sheetId, title) {
+  document.getElementById('vault-connected').style.display = 'block';
+  document.getElementById('vault-setup').style.display = 'none';
+  document.getElementById('vault-title-display').textContent = title;
+  document.getElementById('vault-open-link').href =
+    `https://docs.google.com/spreadsheets/d/${sheetId}`;
 }
 
-async function handleCfgSave() {
-  const sheetId = parseSheetId(document.getElementById('cfg-sheet-id').value);
-  const tabName = document.getElementById('cfg-tab-name').value.trim() || 'secrets';
-  const autofillEnabled = document.getElementById('cfg-autofill').checked;
-  if (!sheetId) { setCfgStatus('Sheet ID is required', 'error'); return; }
-  await chrome.storage.local.set({ sheetId, tabName, autofillEnabled });
-  await chrome.storage.session.remove(['secrets', 'secretsAt']);
-  setCfgStatus('Saved ✓', 'success');
-  setTimeout(() => { closeSettings(); loadAndRender(); }, 800);
+function showVaultSetup(loadList) {
+  document.getElementById('vault-connected').style.display = 'none';
+  document.getElementById('vault-setup').style.display = 'block';
+  document.getElementById('vault-list-section').style.display = 'none';
+  document.getElementById('vault-list').innerHTML = '';
+  document.getElementById('cfg-create').disabled = false;
+  document.getElementById('cfg-create').textContent = 'Create new vault';
+  if (loadList) loadVaultList();
 }
 
-async function handleCfgTest() {
-  const sheetId = parseSheetId(document.getElementById('cfg-sheet-id').value);
-  const tabName = document.getElementById('cfg-tab-name').value.trim() || 'secrets';
-  if (!sheetId) { setCfgStatus('Enter a Sheet URL first', 'error'); return; }
-  setCfgStatus('Connecting...', 'info');
-  try {
-    const token = await new Promise((resolve, reject) => {
-      chrome.identity.getAuthToken({ interactive: true }, t => {
-        if (chrome.runtime.lastError) reject(chrome.runtime.lastError);
-        else resolve(t);
-      });
+async function loadVaultList() {
+  const res = await chrome.runtime.sendMessage({ type: 'LIST_VAULTS' });
+  if (!res.ok || res.vaults.length === 0) return;
+  const listEl = document.getElementById('vault-list');
+  listEl.innerHTML = '';
+  res.vaults.forEach(v => {
+    const row = document.createElement('div');
+    row.className = 'vault-row';
+    const nameEl = document.createElement('span');
+    nameEl.textContent = v.name;
+    const btn = document.createElement('button');
+    btn.className = 'btn-settings';
+    btn.textContent = 'Connect';
+    btn.addEventListener('click', async () => {
+      btn.disabled = true;
+      btn.textContent = '...';
+      const r = await chrome.runtime.sendMessage({ type: 'CONNECT_VAULT', sheetId: v.id, title: v.name });
+      if (r.ok) { closeSettings(); loadAndRender(); }
+      else { setCfgStatus(`Error: ${r.error}`, 'error'); btn.disabled = false; btn.textContent = 'Connect'; }
     });
-    const res = await fetch(
-      `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}?fields=sheets.properties.title`,
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
-    if (!res.ok) {
-      const body = await res.json().catch(() => ({}));
-      throw new Error(body.error?.message || `HTTP ${res.status}`);
-    }
-    const data = await res.json();
-    const tabs = (data.sheets || []).map(s => s.properties.title);
-    const hasTab = tabs.includes(tabName);
-    setCfgStatus(
-      hasTab ? `Connected ✓  —  tab "${tabName}" found` : `Connected ✓  —  tab "${tabName}" will be created on first use`,
-      'success'
-    );
+    row.appendChild(nameEl);
+    row.appendChild(btn);
+    listEl.appendChild(row);
+  });
+  document.getElementById('vault-list-section').style.display = 'block';
+}
+
+async function handleCreateVault() {
+  const btn = document.getElementById('cfg-create');
+  btn.disabled = true;
+  btn.textContent = 'Creating...';
+  setCfgStatus('Creating your vault in Google Drive...', 'info');
+  try {
+    const res = await chrome.runtime.sendMessage({ type: 'CREATE_VAULT' });
+    if (!res.ok) throw new Error(res.error);
+    setCfgStatus('Vault created ✓', 'success');
+    setTimeout(() => { closeSettings(); loadAndRender(); }, 800);
   } catch (err) {
     setCfgStatus(`Error: ${err.message}`, 'error');
+    btn.disabled = false;
+    btn.textContent = 'Create new vault';
   }
 }
 

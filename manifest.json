@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Not Login",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Your secrets live in your Google Sheet.",
 
   "permissions": [
@@ -13,13 +13,14 @@
 
   "host_permissions": [
     "https://sheets.googleapis.com/*",
+    "https://www.googleapis.com/*",
     "<all_urls>"
   ],
 
   "oauth2": {
     "client_id": "208506499773-ae7q33v4m99dc8i9tndu6lobb4cldug2.apps.googleusercontent.com",
     "scopes": [
-      "https://www.googleapis.com/auth/spreadsheets"
+      "https://www.googleapis.com/auth/drive.file"
     ]
   },
 
