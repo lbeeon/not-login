@@ -19,21 +19,17 @@ Wi-Fi passwords, bank PINs, door codes, API keys — the secrets that don't fit 
 
 ## Setup
 
-### 1. Create a Google Sheet
-
-Open [Google Sheets](https://sheets.google.com) and create a new spreadsheet. Copy the Sheet ID from the URL:
-
-```
-https://docs.google.com/spreadsheets/d/<SHEET_ID>/edit
-```
-
-### 2. Install the extension
+### 1. Install the extension
 
 Install from the [Chrome Web Store](https://chromewebstore.google.com/detail/not-login/dnebaaknbmjhbnjdpjhlonfkekblbkni) or load unpacked for development (see below).
 
-### 3. Configure
+### 2. Create your vault
 
-Click the **⚙** icon in the popup, paste your Google Sheet URL or ID, and click **Test** then **Save**. The extension will create a `secrets` tab automatically on first use.
+Click the **⚙** icon in the popup, then **Create new vault**. The extension creates a Google Sheet in your Drive and sets it up automatically — no manual steps needed.
+
+### 3. Add secrets
+
+Tap **+** to add an entry, or type directly in the Sheet and tap **↻** to refresh.
 
 ---
 
@@ -78,11 +74,12 @@ git clone https://github.com/lbeeon/not-login.git
 
 | Permission | Reason |
 |------------|--------|
-| `identity` | Google OAuth 2.0 authentication to access the user's Google Sheet |
-| `storage` | Saves Sheet ID and tab name locally; caches secrets for 5 minutes in session storage |
+| `identity` | Google OAuth 2.0 authentication via `chrome.identity` |
+| `storage` | Syncs vault reference across devices (`storage.sync`); caches secrets for 5 minutes (`storage.session`); saves preferences locally (`storage.local`) |
 | `activeTab` | Reads the current page's hostname for autofill matching |
 | `clipboardWrite` | Copies secrets to clipboard when the user clicks a field |
 | `https://sheets.googleapis.com/*` | Calls the Google Sheets API to read, write, update, and delete secrets |
+| `https://www.googleapis.com/*` | Calls the Google Drive API to create and list vault spreadsheets |
 | `<all_urls>` | Injects the autofill icon next to password fields on any HTTPS website |
 
 ---
