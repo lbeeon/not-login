@@ -9,12 +9,12 @@
     <header>
       <span class="title" id="header-title">Not Login</span>
       <div class="header-actions" id="header-main">
-        <button id="add-btn" title="Add secret">+</button>
-        <button id="refresh-btn" title="Refresh">↻</button>
-        <button id="settings-btn" title="Settings">⚙</button>
+        <button id="add-btn" class="icon-btn" title="Add secret">+</button>
+        <button id="refresh-btn" class="icon-btn" title="Refresh">↻</button>
+        <button id="settings-btn" class="icon-btn" title="Settings">⚙</button>
       </div>
       <div class="header-actions" id="header-settings" style="display:none">
-        <button id="back-btn" title="Back">←</button>
+        <button id="back-btn" class="icon-btn" title="Back">←</button>
       </div>
     </header>
 
@@ -51,8 +51,8 @@
         </div>
         <div class="form-error" id="form-error"></div>
         <div class="form-actions">
-          <button id="cancel-btn">Cancel</button>
-          <button id="save-btn" class="btn-primary">Save</button>
+          <button id="cancel-btn" class="btn">Cancel</button>
+          <button id="save-btn" class="btn btn-primary">Save</button>
         </div>
       </div>
 
@@ -78,14 +78,14 @@
             <span id="vault-title-display"></span>
           </div>
           <div class="vault-btns">
-            <a id="vault-open-link" class="btn-settings" href="#" target="_blank">Open ↗</a>
-            <button id="vault-change" class="btn-settings">Change</button>
+            <a id="vault-open-link" class="btn" href="#" target="_blank">Open ↗</a>
+            <button id="vault-change" class="btn">Change</button>
           </div>
         </div>
 
         <!-- Vault setup -->
         <div id="vault-setup" style="display:none">
-          <button id="cfg-create" class="btn-primary btn-full">Create new vault</button>
+          <button id="cfg-create" class="btn btn-primary btn-full">Create new vault</button>
           <div id="vault-list-section" style="display:none">
             <div class="vault-list-label">or reconnect existing</div>
             <div id="vault-list"></div>

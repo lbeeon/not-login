@@ -4,6 +4,29 @@
   padding: 0;
 }
 
+:root {
+  --radius: 5px;
+  --border: #3a3a3a;
+  --border-hover: #555;
+  --surface-2: #232323;
+  --surface-3: #2a2a2a;
+  --text: #e0e0e0;
+  --text-dim: #aaa;
+  --text-faint: #666;
+  --success: #6abf69;
+  --accent-bg: #1e4a7a;
+  --accent-bg-hover: #245a92;
+  --accent-border: #2a5d99;
+  --accent-text: #7ab4e8;
+  --danger-border: #7a3030;
+  --danger-ghost-bg: #1e1010;
+  --danger-text: #d06060;
+  --danger-text-hover: #e07070;
+  --danger-fill-bg: #4a1a1a;
+  --danger-fill-bg-hover: #5a2020;
+  --danger-fill-border: #6a2a2a;
+}
+
 body {
   width: 320px;
   background: #1a1a1a;
@@ -33,90 +56,46 @@ header {
   align-items: center;
 }
 
-#add-btn {
-  background: none;
-  border: 1px solid #3a3a3a;
-  color: #ccc;
-  width: 24px;
-  height: 24px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 18px;
-  line-height: 1;
+/* Icon buttons: header actions, item row actions, eye toggle.
+   Same shape/border/hover everywhere; only size and base color vary. */
+.icon-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 0 1px;
-  transition: background 0.1s, border-color 0.1s;
+  width: 24px;
+  height: 24px;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-faint);
+  cursor: pointer;
+  padding: 0;
+  font-size: 13px;
+  line-height: 1;
+  font-family: inherit;
+  transition: background 0.1s, border-color 0.1s, color 0.1s;
+}
+
+.icon-btn:hover {
+  background: var(--surface-3);
+  border-color: var(--border-hover);
+  color: var(--text-dim);
+}
+
+.icon-btn--sm {
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+}
+
+#add-btn {
+  color: #ccc;
+  font-size: 17px;
+  padding-bottom: 1px;
 }
 
 #add-btn:hover {
-  background: #2a2a2a;
-  border-color: #555;
-  color: #e0e0e0;
-}
-
-#refresh-btn {
-  background: none;
-  border: 1px solid #3a3a3a;
-  color: #666;
-  width: 24px;
-  height: 24px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-}
-
-#refresh-btn:hover {
-  background: #2a2a2a;
-  border-color: #555;
-  color: #aaa;
-}
-
-#settings-btn {
-  background: none;
-  border: 1px solid #3a3a3a;
-  color: #666;
-  width: 24px;
-  height: 24px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 13px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-}
-
-#settings-btn:hover {
-  background: #2a2a2a;
-  border-color: #555;
-  color: #aaa;
-}
-
-#back-btn {
-  background: none;
-  border: 1px solid #3a3a3a;
-  color: #666;
-  width: 24px;
-  height: 24px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-}
-
-#back-btn:hover {
-  background: #2a2a2a;
-  border-color: #555;
-  color: #aaa;
+  color: var(--text);
 }
 
 /* ── Add Form ── */
@@ -178,36 +157,62 @@ header {
   gap: 6px;
 }
 
-.form-actions button {
-  background: #252525;
-  border: 1px solid #3a3a3a;
-  color: #ccc;
+/* Text buttons: shared by the add-form, settings/vault actions, and the
+   delete-confirm bar. .btn is the base; modifiers layer on top. */
+.btn {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text-dim);
   padding: 5px 14px;
-  border-radius: 4px;
+  border-radius: var(--radius);
   cursor: pointer;
   font-size: 12px;
   font-family: inherit;
-  transition: background 0.1s;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.1s, border-color 0.1s, color 0.1s;
 }
 
-.form-actions button:hover {
-  background: #303030;
-  color: #e0e0e0;
+.btn:hover {
+  background: var(--surface-3);
+  border-color: var(--border-hover);
+  color: var(--text);
 }
 
-.form-actions .btn-primary {
-  background: #1e4a7a;
-  border-color: #2a5d99;
-  color: #cde;
+.btn-primary {
+  background: var(--accent-bg);
+  border-color: var(--accent-border);
+  color: var(--accent-text);
 }
 
-.form-actions .btn-primary:hover {
-  background: #245a92;
+.btn-primary:hover {
+  background: var(--accent-bg-hover);
 }
 
-.form-actions .btn-primary:disabled {
+.btn-primary:disabled {
   opacity: 0.4;
   cursor: not-allowed;
+}
+
+.btn-danger {
+  background: var(--danger-fill-bg);
+  border-color: var(--danger-fill-border);
+  color: var(--danger-text);
+}
+
+.btn-danger:hover {
+  background: var(--danger-fill-bg-hover);
+  color: var(--danger-text-hover);
+}
+
+.btn-danger:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-sm {
+  padding: 3px 10px;
+  font-size: 11px;
 }
 
 /* ── Search ── */
@@ -367,42 +372,13 @@ header {
   flex-shrink: 0;
 }
 
-.btn-eye {
-  background: none;
-  border: none;
-  color: #444;
-  padding: 2px 4px;
-  cursor: pointer;
-  font-size: 12px;
-  line-height: 1;
-  border-radius: 3px;
-  transition: color 0.1s;
-}
-
-.btn-eye:hover {
-  color: #888;
+.btn-eye svg {
+  display: block;
 }
 
 .btn-eye.active {
-  color: #6abf69;
-}
-
-.btn-copy {
-  background: #232323;
-  border: 1px solid #303030;
-  color: #888;
-  padding: 2px 8px;
-  border-radius: 3px;
-  cursor: pointer;
-  font-size: 11px;
-  font-family: monospace;
-  transition: background 0.1s, color 0.1s;
-}
-
-.btn-copy:hover {
-  background: #2c2c2c;
-  color: #e0e0e0;
-  border-color: #444;
+  color: var(--success);
+  border-color: var(--success);
 }
 
 /* web group visual de-emphasis */
@@ -545,25 +521,6 @@ header {
   margin-bottom: 4px;
 }
 
-.btn-settings {
-  background: #252525;
-  border: 1px solid #3a3a3a;
-  color: #aaa;
-  padding: 5px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 12px;
-  font-family: inherit;
-  text-decoration: none;
-  display: inline-block;
-  transition: background 0.1s, color 0.1s;
-}
-
-.btn-settings:hover {
-  background: #303030;
-  color: #e0e0e0;
-}
-
 .btn-full {
   width: 100%;
   padding: 9px;
@@ -675,33 +632,10 @@ header {
   opacity: 1;
 }
 
-.btn-item-action {
-  background: none;
-  border: 1px solid #333;
-  color: #666;
-  width: 20px;
-  height: 20px;
-  border-radius: 3px;
-  cursor: pointer;
-  font-size: 12px;
-  font-family: inherit;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  transition: background 0.1s, color 0.1s, border-color 0.1s;
-}
-
-.btn-item-action:hover {
-  background: #2a2a2a;
-  border-color: #555;
-  color: #bbb;
-}
-
 .btn-delete:hover {
-  border-color: #7a3030;
-  color: #d06060;
-  background: #1e1010;
+  border-color: var(--danger-border);
+  color: var(--danger-text);
+  background: var(--danger-ghost-bg);
 }
 
 /* ── Delete confirm bar ── */
@@ -729,39 +663,3 @@ header {
   text-overflow: ellipsis;
 }
 
-.confirm-cancel,
-.confirm-delete {
-  border-radius: 3px;
-  cursor: pointer;
-  font-size: 11px;
-  font-family: inherit;
-  padding: 2px 8px;
-  transition: background 0.1s;
-}
-
-.confirm-cancel {
-  background: none;
-  border: 1px solid #333;
-  color: #666;
-}
-
-.confirm-cancel:hover {
-  background: #2a2a2a;
-  color: #aaa;
-}
-
-.confirm-delete {
-  background: #4a1a1a;
-  border: 1px solid #6a2a2a;
-  color: #d06060;
-}
-
-.confirm-delete:hover {
-  background: #5a2020;
-  color: #e07070;
-}
-
-.confirm-delete:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}

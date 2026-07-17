@@ -117,12 +117,12 @@ function createItemEl(s) {
   editActionsEl.className = 'item-edit-actions';
 
   const editBtn = document.createElement('button');
-  editBtn.className = 'btn-item-action';
+  editBtn.className = 'icon-btn icon-btn--sm';
   editBtn.textContent = '✎';
   editBtn.addEventListener('click', () => openEditForm(s));
 
   const delBtn = document.createElement('button');
-  delBtn.className = 'btn-item-action btn-delete';
+  delBtn.className = 'icon-btn icon-btn--sm btn-delete';
   delBtn.textContent = '✕';
   delBtn.addEventListener('click', () => handleDelete(s, delBtn));
 
@@ -154,8 +154,9 @@ function createItemEl(s) {
 
   let revealTimer = null;
   const eyeBtn = document.createElement('button');
-  eyeBtn.className = 'btn-eye';
-  eyeBtn.textContent = '👁';
+  eyeBtn.className = 'icon-btn icon-btn--sm btn-eye';
+  eyeBtn.setAttribute('aria-label', 'Toggle password visibility');
+  eyeBtn.innerHTML = '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>';
   eyeBtn.addEventListener('click', () => {
     const revealed = passInput.type === 'text';
     clearTimeout(revealTimer);
@@ -361,11 +362,11 @@ function handleDelete(entry, delBtn) {
 
   const cancelBtn = document.createElement('button');
   cancelBtn.textContent = 'Cancel';
-  cancelBtn.className = 'confirm-cancel';
+  cancelBtn.className = 'btn btn-sm';
 
   const confirmBtn = document.createElement('button');
   confirmBtn.textContent = 'Delete';
-  confirmBtn.className = 'confirm-delete';
+  confirmBtn.className = 'btn btn-sm btn-danger';
 
   bar.appendChild(label);
   bar.appendChild(cancelBtn);
@@ -467,7 +468,7 @@ async function loadVaultList() {
     const nameEl = document.createElement('span');
     nameEl.textContent = v.name;
     const btn = document.createElement('button');
-    btn.className = 'btn-settings';
+    btn.className = 'btn';
     btn.textContent = 'Connect';
     btn.addEventListener('click', async () => {
       btn.disabled = true;

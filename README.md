@@ -60,13 +60,38 @@ git clone https://github.com/lbeeon/not-login.git
 2. Enable **Developer mode**
 3. Click **Load unpacked** → select the project folder
 
+### Fixing the extension ID for local development
+
+When loaded unpacked, Chrome assigns a random extension ID. Since the OAuth 2.0 client is registered to the CWS extension ID (`dnebaaknbmjhbnjdpjhlonfkekblbkni`), authentication will fail unless the local extension uses the same ID.
+
+Add the following `key` field to `manifest.json` (do **not** commit it):
+
+```json
+"key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAt2UjFdNyszrlzPL+Xs88YRWkHoCBljXelNwTd2b51BYeDUutYOuTfht2PjP9AgX6wWkjUsHLeK9FsWXRYqsTOZJsJrERQYoMRbbv8vEd6TPF3n0dbuEEXe5FMuzTc00ub7ttPm6zfsL5M4ntPxxht5GRpA8lTgIskLbAibYdcm5tdex1vYzXVc1+uT3bpcmJqB44UgfOspPBdoUrunfpUcjG3bbhsjc5eTCBx4lLRaXB/w6JQdyfrGB/FbYmQ45BEomt7SYK7QXN+SwSysy7kgBmI7650q8hjYzYKYUOn+VRn07ASNxV5/wY0MDZ+KXGwvCyShr6jerrOhoYo1GQpQIDAQAB",
+```
+
+Then tell git to ignore local changes to this file:
+
+```bash
+git update-index --skip-worktree manifest.json
+```
+
+**When bumping the version:**
+
+```bash
+git update-index --no-skip-worktree manifest.json  # re-enable tracking
+# remove the key field, update version
+git add manifest.json && git commit
+git update-index --skip-worktree manifest.json      # lock again
+# add the key field back locally
+```
+
 ### Google OAuth setup
 
 1. [Google Cloud Console](https://console.cloud.google.com) → Create a project
-2. Enable **Google Sheets API**
-3. Create an **OAuth 2.0 Client ID** → Chrome Extension type
-4. Add your extension ID to the allowed origins
-5. Add yourself as a Test User on the OAuth consent screen
+2. Enable **Google Sheets API** and **Google Drive API**
+3. Create an **OAuth 2.0 Client ID** → Chrome Extension type → set extension ID to `dnebaaknbmjhbnjdpjhlonfkekblbkni`
+4. Add yourself as a Test User on the OAuth consent screen
 
 ---
 
